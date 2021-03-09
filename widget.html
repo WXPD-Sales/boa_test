@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Webex Teams Widget!</title>
+    <meta name="description" content="A simple widget for Webex.">
+    <link id="favicon" rel="icon" href="https://developer.webex.com/favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $( function() {
+        $( "#dialog" ).dialog({
+          width: 700,
+          height: 500
+        });
+      } );
+    </script>
+
+    <!-- import Cisco Webex Teams Widget library -->
+    <script src="https://code.s4d.io/widget-space/production/bundle.js"></script>
+    <link rel="stylesheet" href="https://code.s4d.io/widget-space/production/main.css">
+
+    <!-- cookie parser for JS-->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+  </head>
+  <body style="background-image:url('https://cdn.glitch.com/e627e173-ddba-434f-ad34-e11549d64430%2F1_Ud5vq4XLOohhVKT1Nv94NQ.png?v=1585690687557');background-size: cover;">
+    <header>
+    </header>
+      <div id="dialog">
+        <div id="my-ciscospark-widget" autofocus></div>
+      </div>
+
+    <script>
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      const sipTarget = urlParams.get('sip')
+      const token = urlParams.get('token')
+      console.log(sipTarget);
+      console.log(token);
+
+      var widgetEl = document.getElementById('my-ciscospark-widget');
+      // Init a new widget
+      ciscospark.widget(widgetEl).spaceWidget({
+        accessToken: token,
+        destinationId: sipTarget,
+        destinationType: 'sip',
+        spaceActivities: {"files":true,"meet":true,"message":true,"people":false},
+        initialActivity: 'meet',
+        secondaryActivitiesFullWidth: true
+      });
+      //document.getElementById('dialog').title = "Hello! " + Cookies.get('label');
+    </script>
+
+  </body>
+</html>
